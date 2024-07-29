@@ -1,24 +1,50 @@
-<?php 
-$name=null;
-if(isset($_POST["name"])&&!empty($_POST["name"])){
-    $name=$_POST["name"];
-    setcookie("name",$_POST["name"],time()+3600,"/");
-}
-if(isset($_COOKIE["name"])&&!empty($_COOKIE["name"])){
-    $name=$_COOKIE["name"];
-}
-?>
-<html>
-    <head></head>
-    <body>
-        <?php if(!$name){?>
-        <form action="" method="post">
-            <input type="text" name="name">
-            <button>Submit</button>
-        </form>
-        <?php }else{?>
-        <h1>hi, <?php echo $name;?></h1>
-        <a href="logout.php">logout</a>
-        <?php }?>
-    </body>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calendar Table</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 50%;
+        }
+        th, td {
+            border: 1px solid black;
+            text-align: center;
+            padding: 8px;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        body{
+            display: flex;
+            justify-content:center;
+            align-items:center;
+            height: 100vh;
+        }
+    </style>
+</head>
+<body>
+    <table>
+        <?php
+        $numbers = range(1, 8);
+        $columns = 7;
+        $rows = ceil(count($numbers) / $columns);
+
+        for ($i = 0; $i < $rows; $i++) {
+            echo "<tr>";
+            for ($j = 0; $j < $columns; $j++) {
+                $index = $i * $columns + $j;
+                if (isset($numbers[$index])) {
+                    echo "<td>" . $numbers[$index] . "</td>";
+                } else {
+                    echo "<td></td>";
+                }
+            }
+            echo "</tr>";
+        }
+        ?>
+    </table>
+</body>
 </html>
